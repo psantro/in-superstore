@@ -1,0 +1,24 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "njpwerner.mypy-type-checker",
+        "ms-toolsai.jupyter",
+        "ms-jupyter.jupyter-extension-pack",
+        "ms-jupyter.vscode-jupyter",
+        "ms-jupyter.vscode-jupyter-cell-tags",
+        "ms-jupyter.vscode-jupyter-renderers",
+        "ms-jupyter.vscode-jupyter-slideshow",
+        "ms-jupyter.vscode-py-rev",
+        "paulhodel.autoDocstring",
+        "ms-pbi.dataprep",
+        "shd101wyy.markdown-preview-github-styles",
+        "mechatroner.rainbow-csv"
+    ],
+    "unwantedRecommendations": [
+        "ms-python.flake8",
+        "ms-python.autopep8",
+        "ms-python.black-formatter"
+    ]
+}

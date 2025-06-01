@@ -1,0 +1,51 @@
+[project]
+name = "superstore"
+version = "0.1.0"
+description = "Business Intelligence project for a fictional superstore."
+authors = [
+  { name = "Pablo Sánchez Troncoso", email = "psantro@alu.upo.es" },
+  { name = "Antonio Garrido Massé", email = "agarmas@alu.upo.es" }
+]
+requires-python = ">=3.13"
+dependencies = [
+  # Data processing
+  "numpy",
+  "pandas",
+  "pandera>=0.24",
+
+  # Scientific computing & ML
+  "scipy",
+  "scikit-learn",
+
+  # Visualization
+  "matplotlib",
+  "seaborn",
+  "great-tables",
+
+  # Web app framework
+  "streamlit"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+lint.select = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+show_error_codes = true
+warn_unused_ignores = true
+
+[project.optional-dependencies]
+dev = [
+  "ruff",
+  "mypy"
+]

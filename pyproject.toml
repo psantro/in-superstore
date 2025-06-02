@@ -10,7 +10,7 @@ requires-python = ">=3.13"
 dependencies = [
   # Data processing
   "numpy",
-  "polars",
+  "pandas",
 
   # Scientific computing & ML
   "scipy",
@@ -18,7 +18,7 @@ dependencies = [
 
   # Visualization
   "matplotlib",
-  "plotly",
+  "seaborn",
   "great-tables",
 
   # Web app framework

@@ -3,7 +3,6 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "charliermarsh.ruff",
-        "njpwerner.mypy-type-checker",
         "ms-toolsai.jupyter",
         "ms-jupyter.jupyter-extension-pack",
         "ms-jupyter.vscode-jupyter",

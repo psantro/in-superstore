@@ -8,10 +8,6 @@
         "editor.formatOnType": true,
         "editor.wordBasedSuggestions": "off"
     },
-    // Type hints & checking
-    "python.analysis.typeCheckingMode": "strict",
-    "python.analysis.inlayHints.variableTypes": true,
-    "python.analysis.inlayHints.functionReturnTypes": true,
     // File formatting
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,

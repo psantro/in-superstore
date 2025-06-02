@@ -20,7 +20,8 @@ st.title("Dashboard Ejecutivo")
 st.markdown(
     """
     ## Bienvenido al Dashboard Ejecutivo
-    Este dashboard proporciona una visión general de los indicadores clave de rendimiento (KPI) de la empresa.
+    Este dashboard proporciona una visión general de los indicadores
+    clave de rendimiento (KPI) de la empresa.
 
     ### Secciones del Dashboard:
     - **KPIs de Productos**: Visión general de los indicadores más importantes.

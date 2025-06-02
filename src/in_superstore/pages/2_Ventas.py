@@ -6,18 +6,17 @@ st.set_page_config(
     page_icon=":chart_with_upwards_trend:",
 )
 
-df = st.session_state.get("data", pd.DataFrame())
-geo_df = st.session_state.get("geo_data", pd.DataFrame())
+superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
+geo_data = st.session_state.get("geo_data", pd.DataFrame())
 
 st.title("Ventas")
 
 st.subheader("Mapa de ventas por ciudad")
 
-pc_sales = df.groupby("Postal Code").size().reset_index(name="Ventas")
+pc_sales = superstore_data.groupby("Postal Code").size().reset_index(name="Ventas")
 
-geo_sales = pd.merge(
-    pc_sales,
-    geo_df,
+geo_sales = pc_sales.merge(
+    geo_data,
     left_on="Postal Code",
     right_on="postal_code",
     how="left",
@@ -31,9 +30,11 @@ st.map(geo_sales[["lat", "lon", "Ventas"]], size="Ventas")
 
 st.subheader("Gráfico de beneficios por año")
 
-df["Order Date"] = pd.to_datetime(df["Order Date"])
+superstore_data["Order Date"] = pd.to_datetime(superstore_data["Order Date"])
 
-yearly_profit = df.groupby(df["Order Date"].dt.year)["Profit"].sum().reset_index()
+yearly_profit = (
+    superstore_data.groupby(superstore_data["Order Date"].dt.year)["Profit"].sum().reset_index()
+)
 yearly_profit["Order Date"] = yearly_profit["Order Date"].astype(str)
 
 st.line_chart(
@@ -51,6 +52,9 @@ compare_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False
 st.metric(
     label="Incremento del beneficio del último año",
     value=f"${last_year_profit:,.2f}",
-    delta=f"${last_year_profit - compare_year_profit:,.2f} ({((last_year_profit - compare_year_profit) / compare_year_profit) * 100:.2f}%)",
-    delta_color="normal" if last_year_profit >= compare_year_profit else "inverse",
+    delta=(
+        f"${last_year_profit - compare_year_profit:,.2f} "
+        f"({((last_year_profit - compare_year_profit) / compare_year_profit) * 100:.2f}%)"
+    ),
+    delta_color=("normal" if last_year_profit >= compare_year_profit else "inverse"),
 )

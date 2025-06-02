@@ -6,9 +6,9 @@ st.set_page_config(
     page_icon=":package:",
 )
 
-df = st.session_state.get("data", pd.DataFrame())
+superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
 
-n_products = df["Product Name"].nunique()
+n_products = superstore_data["Product Name"].nunique()
 
 st.title("Productos")
 
@@ -24,7 +24,7 @@ show_top_products = st.number_input(
 )
 
 top_products = (
-    df.groupby("Product Name")["Quantity"]
+    superstore_data.groupby("Product Name")["Quantity"]
     .sum()
     .sort_values(ascending=False)
     .head(show_top_products)
@@ -45,7 +45,7 @@ show_margin_products = st.number_input(
 )
 
 margin_products = (
-    df.groupby("Product Name")["Profit"]
+    superstore_data.groupby("Product Name")["Profit"]
     .sum()
     .sort_values(ascending=False)
     .head(show_margin_products)

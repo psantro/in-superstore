@@ -8,20 +8,13 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
-  # Data processing
   "numpy",
   "pandas",
-
-  # Scientific computing & ML
   "scipy",
   "scikit-learn",
-
-  # Visualization
   "matplotlib",
   "seaborn",
   "great-tables",
-
-  # Web app framework
   "streamlit"
 ]
 
@@ -40,3 +33,7 @@ line-ending = "lf"
 dev = [
   "ruff",
 ]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"

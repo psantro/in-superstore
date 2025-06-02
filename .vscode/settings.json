@@ -1,18 +1,14 @@
 {
-    // Python interpreter
     "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-    // Format & linting
     "editor.formatOnSave": true,
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.formatOnType": true,
         "editor.wordBasedSuggestions": "off"
     },
-    // File formatting
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
-    // Save actions
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
         "source.fixAll": "explicit"

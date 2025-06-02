@@ -1,6 +1,5 @@
-import streamlit as st
 import pandas as pd
-
+import streamlit as st
 
 st.set_page_config(
     page_title="Ventas",
@@ -17,7 +16,11 @@ st.subheader("Mapa de ventas por ciudad")
 pc_sales = df.groupby("Postal Code").size().reset_index(name="Ventas")
 
 geo_sales = pd.merge(
-    pc_sales, geo_df, left_on="Postal Code", right_on="postal_code", how="left"
+    pc_sales,
+    geo_df,
+    left_on="Postal Code",
+    right_on="postal_code",
+    how="left",
 )
 
 geo_sales = geo_sales.dropna(subset=["latitude", "longitude"])
@@ -42,12 +45,8 @@ st.line_chart(
 
 st.subheader("Aumento del benedicio respecto al año anterior")
 
-last_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False).iloc[0][
-    "Profit"
-]
-compare_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False).iloc[
-    1
-]["Profit"]
+last_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False).iloc[0]["Profit"]
+compare_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False).iloc[1]["Profit"]
 
 st.metric(
     label="Incremento del beneficio del último año",

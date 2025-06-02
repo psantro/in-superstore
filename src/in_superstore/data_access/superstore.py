@@ -1,13 +1,34 @@
+import os
 from pathlib import Path
 
 import pandas as pd
 
 
-def read_superstore_data(
-    superstore_source: Path,
-) -> pd.DataFrame:
+def read() -> pd.DataFrame:
+    """Read the superstore dataset.
+
+    Raises:
+        FileNotFoundError: If DATA_DIRNAME is not defined as an environment variable.
+        FileNotFoundError: If SUPERSTORE_FILENAME is not defined as an environment variable.
+
+    Returns:
+        pd.DataFrame: Superstore dataset dataframe
+    """
+
+    data_dirname = os.getenv("DATA_DIRNAME", None)
+    if data_dirname is None:
+        msg = "Data directory not defined."
+        raise FileNotFoundError(msg)
+
+    superstore_filename = os.getenv("SUPERSTORE_FILENAME", None)
+    if superstore_filename is None:
+        msg = "Superstore dataset file not defined."
+        raise FileNotFoundError(msg)
+
+    superstore_datapath = Path() / data_dirname / superstore_filename
+
     superstore_data = pd.read_csv(
-        filepath_or_buffer=superstore_source,
+        filepath_or_buffer=superstore_datapath,
         index_col="Row ID",
         dtype={
             "Row ID": pd.UInt32Dtype(),

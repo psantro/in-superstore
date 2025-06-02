@@ -1,35 +1,20 @@
-import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv
 
-from in_superstore.read import read_superstore_data
+from in_superstore import data_access
+
+load_dotenv()
 
 st.set_page_config(
     page_title="Dashboard Ejecutivo",
     page_icon=":clipboard:",
 )
 
-df = read_superstore_data("../../data/Sample - Superstore.csv")
+superstore_data = data_access.superstore.read()
+geo_data = data_access.geo.read()
 
-geo_cols = [
-    "country_code",
-    "postal_code",
-    "place_name",
-    "admin_name1",
-    "admin_code1",
-    "admin_name2",
-    "admin_code2",
-    "admin_name3",
-    "admin_code3",
-    "latitude",
-    "longitude",
-    "accuracy",
-]
-
-geo_df = pd.read_csv("../../data/US.txt", sep="\t", header=None, names=geo_cols)
-geo_df = geo_df[["postal_code", "latitude", "longitude"]]
-
-st.session_state.setdefault("data", df)
-st.session_state.setdefault("geo_data", geo_df)
+st.session_state.setdefault("superstore_data", superstore_data)
+st.session_state.setdefault("geo_data", geo_data)
 
 st.title("Dashboard Ejecutivo")
 st.markdown(
@@ -46,5 +31,5 @@ st.markdown(
 )
 
 st.subheader("Datos Cargados")
-st.dataframe(df)
-st.dataframe(geo_df)
+st.dataframe(superstore_data)
+st.dataframe(geo_data)

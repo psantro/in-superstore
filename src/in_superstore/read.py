@@ -1,38 +1,40 @@
 from pathlib import Path
-from typing import IO
 
-import polars as pl
+import pandas as pd
 
 
 def read_superstore_data(
-    superstore_source: str | Path | IO[str] | IO[bytes] | bytes,
-) -> pl.DataFrame:
-    return pl.read_csv(
-        source=superstore_source,
-        schema={
-            "Row ID": pl.UInt32,
-            "Order ID": pl.String,
-            "Order Date": pl.String,
-            "Ship Date": pl.String,
-            "Ship Mode": pl.Categorical,
-            "Customer ID": pl.Categorical,
-            "Customer Name": pl.Categorical,
-            "Segment": pl.Categorical,
-            "Country": pl.Categorical,
-            "City": pl.Categorical,
-            "State": pl.Categorical,
-            "Postal Code": pl.Categorical,
-            "Region": pl.Categorical,
-            "Product ID": pl.Categorical,
-            "Category": pl.Categorical,
-            "Sub-Category": pl.Categorical,
-            "Product Name": pl.Categorical,
-            "Sales": pl.Float64,
-            "Quantity": pl.UInt8,
-            "Discount": pl.Float64,
-            "Profit": pl.Float64,
+    superstore_source: Path,
+) -> pd.DataFrame:
+    superstore_data = pd.read_csv(
+        filepath_or_buffer=superstore_source,
+        index_col="Row ID",
+        dtype={
+            "Row ID": pd.UInt32Dtype(),
+            "Order ID": pd.StringDtype(),
+            "Order Date": pd.StringDtype(),
+            "Ship Date": pd.StringDtype(),
+            "Ship Mode": pd.CategoricalDtype(),
+            "Customer ID": pd.CategoricalDtype(),
+            "Customer Name": pd.CategoricalDtype(),
+            "Segment": pd.CategoricalDtype(),
+            "Country": pd.CategoricalDtype(),
+            "City": pd.CategoricalDtype(),
+            "State": pd.CategoricalDtype(),
+            "Postal Code": pd.CategoricalDtype(),
+            "Region": pd.CategoricalDtype(),
+            "Product ID": pd.CategoricalDtype(),
+            "Category": pd.CategoricalDtype(),
+            "Sub-Category": pd.CategoricalDtype(),
+            "Product Name": pd.CategoricalDtype(),
+            "Sales": pd.Float64Dtype(),
+            "Quantity": pd.UInt8Dtype(),
+            "Discount": pd.Float64Dtype(),
+            "Profit": pd.Float64Dtype(),
         },
-    ).with_columns(
-        pl.col("Order Date").str.to_date("%m/%d/%Y"),
-        pl.col("Ship Date").str.to_date("%m/%d/%Y"),
     )
+
+    superstore_data["Order Date"] = pd.to_datetime(superstore_data["Order Date"], format="%m/%d/%Y")
+    superstore_data["Ship Date"] = pd.to_datetime(superstore_data["Ship Date"], format="%m/%d/%Y")
+
+    return superstore_data

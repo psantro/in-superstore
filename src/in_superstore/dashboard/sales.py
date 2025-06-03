@@ -12,9 +12,7 @@ def sales() -> None:
         pd.DataFrame(),
     )
 
-    st.write(geographic_data)
-
-    st.title("Ventas")
+    st.title("📊 Sales 🛒")
 
     superstore_data["Order Date"] = pd.to_datetime(
         superstore_data["Order Date"],
@@ -77,7 +75,9 @@ def sales() -> None:
     st.subheader("Mapa de ventas por ciudad")
 
     pc_sales = (
-        superstore_data.groupby("Postal Code", observed=False).size().reset_index(name="Ventas")
+        superstore_data.groupby("Postal Code", observed=False)
+        .size()
+        .reset_index(name="Ventas")
     )
 
     geo_sales = pc_sales.merge(

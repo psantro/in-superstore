@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+
 def products() -> None:
     superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
 
@@ -9,7 +10,7 @@ def products() -> None:
     n_categories = superstore_data["Category"].nunique()
     n_subcategories = superstore_data["Sub-Category"].nunique()
 
-    st.title("Productos")
+    st.title("🛍️ Products 📦")
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Productos únicos", n_products)
@@ -67,18 +68,27 @@ def products() -> None:
 
     st.subheader("Distribución de ventas por categoría")
     category_sales = (
-        superstore_data.groupby("Category", observed=False)["Order ID"].nunique().reset_index()
+        superstore_data.groupby("Category", observed=False)["Order ID"]
+        .nunique()
+        .reset_index()
     )
     category_sales.columns = ["Category", "Count"]
-    fig_cat = px.pie(category_sales, names="Category", values="Count", title="Ventas por categoría")
+    fig_cat = px.pie(
+        category_sales, names="Category", values="Count", title="Ventas por categoría"
+    )
     st.plotly_chart(fig_cat, use_container_width=True)
 
     st.subheader("Distribución de ventas por subcategoría")
     subcategory_sales = (
-        superstore_data.groupby("Sub-Category", observed=False)["Order ID"].nunique().reset_index()
+        superstore_data.groupby("Sub-Category", observed=False)["Order ID"]
+        .nunique()
+        .reset_index()
     )
     subcategory_sales.columns = ["Sub-Category", "Count"]
     fig_subcat = px.pie(
-        subcategory_sales, names="Sub-Category", values="Count", title="Ventas por subcategoría"
+        subcategory_sales,
+        names="Sub-Category",
+        values="Count",
+        title="Ventas por subcategoría",
     )
     st.plotly_chart(fig_subcat, use_container_width=True)

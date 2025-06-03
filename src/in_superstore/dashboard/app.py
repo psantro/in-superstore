@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from in_superstore import data_access
-from in_superstore.dashboard import clients, products, sales, welcome
+from in_superstore.dashboard import customers, products, sales, welcome
 
 
 @st.cache_data
@@ -23,14 +23,16 @@ def fetch_geographic_data() -> pd.DataFrame:
 
 def get_pages() -> list[st.Page]:
     return [
-        st.Page(page=welcome, title="Welcome!", icon="🏠"),
-        st.Page(page=sales, title="Sales", icon="📈"),
-        st.Page(page=products, title="Products", icon="📦"),
-        st.Page(page=clients, title="Clients", icon="💼"),
+        st.Page(page=welcome, title="Welcome!", icon="🏠", default=True),
+        st.Page(page=sales, title="Sales", icon="📊"),
+        st.Page(page=products, title="Products", icon="🛍️"),
+        st.Page(page=customers, title="Customers", icon="🧑"),
     ]
 
 
 def run_app() -> None:
+    st.set_page_config(layout="wide")
+
     data_dirname = st.secrets["data"]["data_dirname"]
     superstore_filename = st.secrets["data"]["superstore_filename"]
     geographic_filename = st.secrets["data"]["geographic_filename"]

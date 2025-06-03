@@ -1,4 +1,5 @@
 import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 
@@ -21,23 +22,38 @@ def customers() -> None:
         .sum()
     )
 
-    col1.metric("Clientes únicos", f"{n_customers}")
-    col2.metric("Pedidos únicos", f"{n_orders}")
-    col3.metric("Pedidos por cliente", f"{n_orders / n_customers:.2f}")
+    col1.metric("Unique customers", f"{n_customers}")
+    col2.metric("Unique orders", f"{n_orders}")
+    col3.metric("Orders per customer", f"{n_orders / n_customers:.2f}")
 
-    col1.metric("Venta media por cliente", f"${avg_sales_per_customer:,.2f}")
-    col2.metric("Clientes recurrentes", f"{repeat_customers}")
-    col3.metric(
-        "Porcentaje recurrentes", f"{(repeat_customers / n_customers) * 100:.1f}%"
-    )
+    col1.metric("Average sales per customer", f"${avg_sales_per_customer:,.2f}")
+    col2.metric("Repeat customers", f"{repeat_customers}")
+    col3.metric("Repeat customer %", f"{(repeat_customers / n_customers) * 100:.1f}%")
 
-    st.subheader("Clientes únicos por año")
+    st.subheader("Unique customers per year")
     superstore_data["Order Date"] = pd.to_datetime(superstore_data["Order Date"])
     customers_year = (
         superstore_data.groupby(superstore_data["Order Date"].dt.year)["Customer ID"]
         .nunique()
         .reset_index()
     )
-    customers_year.columns = ["Year", "Clientes únicos"]
+    customers_year.columns = ["Year", "Unique customers"]
     customers_year["Year"] = customers_year["Year"].astype(str)
-    st.line_chart(customers_year.set_index("Year"))
+    st.line_chart(customers_year.set_index("Year"), use_container_width=True)
+
+    st.subheader("Customer segments")
+
+    segment_counts = (
+        superstore_data.groupby("Segment", observed=False)["Customer ID"]
+        .nunique()
+        .reset_index()
+    )
+    segment_counts.columns = ["Segment", "Unique customers"]
+
+    fig_segment = px.pie(
+        segment_counts,
+        names="Segment",
+        values="Unique customers",
+        title="Customer segment proportion",
+    )
+    st.plotly_chart(fig_segment, use_container_width=True)

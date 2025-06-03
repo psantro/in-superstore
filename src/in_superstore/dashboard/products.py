@@ -13,11 +13,11 @@ def products() -> None:
     st.title("🛍️ Products 📦")
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Productos únicos", n_products)
-    col2.metric("Categorías", n_categories)
-    col3.metric("Subcategorías", n_subcategories)
+    col1.metric("Unique products", n_products)
+    col2.metric("Categories", n_categories)
+    col3.metric("Subcategories", n_subcategories)
 
-    st.subheader("Productos más vendidos")
+    st.subheader("Most sold products")
 
     top_products = (
         superstore_data.groupby("Product Name", observed=False)["Quantity"]
@@ -25,10 +25,9 @@ def products() -> None:
         .sort_values(ascending=False)
     )
     top_products = top_products.reset_index()
-    top_products.columns = ["Nombre del producto", "Ventas"]
     st.dataframe(top_products, use_container_width=True, hide_index=True)
 
-    st.subheader("Productos que reportan más beneficio")
+    st.subheader("Products with highest profit")
 
     margin_products = (
         superstore_data.groupby("Product Name", observed=False)["Profit"]
@@ -36,18 +35,17 @@ def products() -> None:
         .sort_values(ascending=False)
     )
     margin_products = margin_products.reset_index()
-    margin_products.columns = ["Nombre del producto", "Beneficio"]
     st.dataframe(
         margin_products.style.format(
             {
-                "Beneficio": "${:,.2f}",
+                "Profit": "${:,.2f}",
             }
         ),
         use_container_width=True,
         hide_index=True,
     )
 
-    st.subheader("Distribución de ventas por categoría")
+    st.subheader("Sales by category")
     category_sales = (
         superstore_data.groupby("Category", observed=False)["Order ID"]
         .nunique()
@@ -55,6 +53,6 @@ def products() -> None:
     )
     category_sales.columns = ["Category", "Count"]
     fig_cat = px.pie(
-        category_sales, names="Category", values="Count", title="Ventas por categoría"
+        category_sales, names="Category", values="Count", title="Sales by Category"
     )
     st.plotly_chart(fig_cat, use_container_width=True)

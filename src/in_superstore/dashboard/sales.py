@@ -112,7 +112,7 @@ def sales() -> None:
         pc_sales = (
             superstore_data.groupby("Postal Code", observed=False)
             .size()
-            .reset_index(name="Ventas")
+            .reset_index(name="Sales")
         )
 
         geo_sales = pc_sales.merge(
@@ -126,19 +126,6 @@ def sales() -> None:
             subset=["Latitude", "Longitude"],
         )
 
-        geo_sales["Ventas"] = geo_sales["Ventas"] * 250
+        geo_sales["Sales"] = geo_sales["Sales"] * 250
 
-        st.map(geo_sales, size="Ventas", latitude="Latitude", longitude="Longitude")
-
-        st.subheader("States Sales")
-        city_sales = (
-            superstore_data.groupby("State", observed=False)
-            .size()
-            .reset_index(name="Ventas")
-            .sort_values("Ventas", ascending=False)
-            .head(20)
-        )
-        st.bar_chart(
-            city_sales.set_index("State"),
-            use_container_width=True,
-        )
+        st.map(geo_sales, size="Sales", latitude="Latitude", longitude="Longitude")

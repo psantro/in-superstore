@@ -6,9 +6,8 @@ import pandas as pd
 def read(superstore_datapath: Path) -> pd.DataFrame:
     superstore_data = pd.read_csv(
         filepath_or_buffer=superstore_datapath,
-        index_col="Row ID",
+        index_col="Order ID",
         dtype={
-            "Row ID": pd.UInt32Dtype(),
             "Order ID": pd.StringDtype(),
             "Order Date": pd.StringDtype(),
             "Ship Date": pd.StringDtype(),
@@ -30,9 +29,17 @@ def read(superstore_datapath: Path) -> pd.DataFrame:
             "Discount": pd.Float64Dtype(),
             "Profit": pd.Float64Dtype(),
         },
+        skip_blank_lines=True,
+        skipinitialspace=True,
     )
 
-    superstore_data["Order Date"] = pd.to_datetime(superstore_data["Order Date"], format="%m/%d/%Y")
-    superstore_data["Ship Date"] = pd.to_datetime(superstore_data["Ship Date"], format="%m/%d/%Y")
+    superstore_data = superstore_data.drop(labels=["Row ID"], axis="columns")
 
-    return superstore_data
+    superstore_data["Order Date"] = pd.to_datetime(
+        superstore_data["Order Date"], format="%m/%d/%Y"
+    )
+    superstore_data["Ship Date"] = pd.to_datetime(
+        superstore_data["Ship Date"], format="%m/%d/%Y"
+    )
+
+    return superstore_data.sort_values(by="Order Date", ascending=False)

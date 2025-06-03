@@ -17,7 +17,7 @@ def products() -> None:
     col2.metric("Categories", n_categories)
     col3.metric("Subcategories", n_subcategories)
 
-    st.subheader("Most sold products")
+    st.subheader("Best-selling products")
 
     top_products = (
         superstore_data.groupby("Product Name", observed=False)["Quantity"]

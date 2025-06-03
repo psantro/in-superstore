@@ -1,4 +1,4 @@
-[project]
+[tool.poetry]
 name = "superstore"
 version = "0.1.0"
 description = "Business Intelligence project for a fictional superstore."
@@ -6,35 +6,25 @@ authors = [
   { name = "Pablo Sánchez Troncoso", email = "psantro@alu.upo.es" },
   { name = "Antonio Garrido Massé", email = "agarmas@alu.upo.es" }
 ]
-requires-python = ">=3.13"
-dependencies = [
-  "numpy",
-  "pandas",
-  "scipy",
-  "scikit-learn",
-  "matplotlib",
-  "seaborn",
-  "great-tables",
-  "streamlit>=1.36",
-  "plotly"
+packages = [
+  { include = "in_superstore", from = "src" }
 ]
 
-[tool.ruff]
-src = ["src"]
-line-length = 100
-target-version = "py313"
-lint.select = ["ALL"]
-lint.ignore = ["D"]
+[tool.poetry.dependencies]
+python = ">=3.13"
+numpy = "*"
+pandas = "*"
+scipy = "*"
+scikit-learn = "*"
+matplotlib = "*"
+seaborn = "*"
+great-tables = "*"
+streamlit = ">=1.36"
+plotly = "*"
 
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-line-ending = "lf"
+[tool.poetry.dev-dependencies]
+ruff = "*"
 
-[project.optional-dependencies]
-dev = [
-  "ruff",
-]
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

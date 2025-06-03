@@ -118,17 +118,17 @@ def sales() -> None:
         geo_sales = pc_sales.merge(
             geographic_data,
             left_on="Postal Code",
-            right_on="postal_code",
+            right_index=True,
             how="left",
         )
 
         geo_sales = geo_sales.dropna(
-            subset=["latitude", "longitude"],
+            subset=["Latitude", "Longitude"],
         )
 
         geo_sales["Ventas"] = geo_sales["Ventas"] * 250
 
-        st.map(geo_sales, size="Ventas")
+        st.map(geo_sales, size="Ventas", latitude="Latitude", longitude="Longitude")
 
         st.subheader("States Sales")
         city_sales = (

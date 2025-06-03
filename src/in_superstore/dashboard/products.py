@@ -58,18 +58,3 @@ def products() -> None:
         category_sales, names="Category", values="Count", title="Ventas por categoría"
     )
     st.plotly_chart(fig_cat, use_container_width=True)
-
-    st.subheader("Distribución de ventas por subcategoría")
-    subcategory_sales = (
-        superstore_data.groupby("Sub-Category", observed=False)["Order ID"]
-        .nunique()
-        .reset_index()
-    )
-    subcategory_sales.columns = ["Sub-Category", "Count"]
-    fig_subcat = px.pie(
-        subcategory_sales,
-        names="Sub-Category",
-        values="Count",
-        title="Ventas por subcategoría",
-    )
-    st.plotly_chart(fig_subcat, use_container_width=True)

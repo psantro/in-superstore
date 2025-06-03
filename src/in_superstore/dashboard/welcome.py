@@ -23,6 +23,6 @@ def welcome() -> None:
 
     superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
     geo_data = st.session_state.get("geographic_data", pd.DataFrame())
-    
+
     st.dataframe(superstore_data)
     st.dataframe(geo_data)

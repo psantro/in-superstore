@@ -8,6 +8,7 @@ def read(superstore_datapath: Path) -> pd.DataFrame:
         filepath_or_buffer=superstore_datapath,
         index_col="Row ID",
         dtype={
+            "Row ID": pd.UInt32Dtype(),
             "Order ID": pd.StringDtype(),
             "Order Date": pd.StringDtype(),
             "Ship Date": pd.StringDtype(),

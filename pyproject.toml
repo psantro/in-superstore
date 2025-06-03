@@ -3,8 +3,8 @@ name = "superstore"
 version = "0.1.0"
 description = "Business Intelligence project for a fictional superstore."
 authors = [
-  { name = "Pablo Sánchez Troncoso", email = "psantro@alu.upo.es" },
-  { name = "Antonio Garrido Massé", email = "agarmas@alu.upo.es" }
+  "Pablo Sánchez Troncoso <psantro@alu.upo.es>",
+  "Antonio Garrido Massé <agarmas@alu.upo.es>"
 ]
 packages = [
   { include = "in_superstore", from = "src" }

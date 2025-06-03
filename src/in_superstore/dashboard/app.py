@@ -23,7 +23,7 @@ def fetch_geographic_data() -> pd.DataFrame:
 
 def get_pages() -> list[st.Page]:
     return [
-        st.Page(page=welcome, title="Welcome!", icon="🏠", default=True),
+        st.Page(page=welcome, title="Home", icon="🏠", default=True),
         st.Page(page=sales, title="Sales", icon="📊"),
         st.Page(page=products, title="Products", icon="🛍️"),
         st.Page(page=customers, title="Customers", icon="🧑"),

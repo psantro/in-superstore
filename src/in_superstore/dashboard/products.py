@@ -19,51 +19,32 @@ def products() -> None:
 
     st.subheader("Productos más vendidos")
 
-    show_top_products = st.number_input(
-        "Número de productos a mostrar",
-        min_value=1,
-        max_value=n_products,
-        value=5,
-        step=1,
-        key="top_products_input",
-    )
-
     top_products = (
         superstore_data.groupby("Product Name", observed=False)["Quantity"]
         .sum()
         .sort_values(ascending=False)
-        .head(show_top_products)
     )
     top_products = top_products.reset_index()
     top_products.columns = ["Nombre del producto", "Ventas"]
-    st.table(top_products.set_index("Nombre del producto"))
+    st.dataframe(top_products, use_container_width=True, hide_index=True)
 
     st.subheader("Productos que reportan más beneficio")
-
-    show_margin_products = st.number_input(
-        "Número de productos a mostrar",
-        min_value=1,
-        max_value=n_products,
-        value=5,
-        step=1,
-        key="margin_products_input",
-    )
 
     margin_products = (
         superstore_data.groupby("Product Name", observed=False)["Profit"]
         .sum()
         .sort_values(ascending=False)
-        .head(show_margin_products)
     )
     margin_products = margin_products.reset_index()
     margin_products.columns = ["Nombre del producto", "Beneficio"]
-    margin_products.set_index("Nombre del producto")
-    st.table(
+    st.dataframe(
         margin_products.style.format(
             {
                 "Beneficio": "${:,.2f}",
             }
-        )
+        ),
+        use_container_width=True,
+        hide_index=True,
     )
 
     st.subheader("Distribución de ventas por categoría")

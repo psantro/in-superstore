@@ -7,10 +7,12 @@ def sales() -> None:
         "superstore_data",
         pd.DataFrame(),
     )
-    geo_data = st.session_state.get(
-        "geo_data",
+    geographic_data = st.session_state.get(
+        "geographic_data",
         pd.DataFrame(),
     )
+
+    st.write(geographic_data)
 
     st.title("Ventas")
 
@@ -79,7 +81,7 @@ def sales() -> None:
     )
 
     geo_sales = pc_sales.merge(
-        geo_data,
+        geographic_data,
         left_on="Postal Code",
         right_on="postal_code",
         how="left",

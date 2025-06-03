@@ -1,46 +1,22 @@
-import os
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-from dotenv import load_dotenv
 
 from in_superstore import data_access
-from in_superstore.dashboard import other, welcome
-
-load_dotenv()
+from in_superstore.dashboard import clients, products, sales, welcome
 
 
 @st.cache_data
 def fetch_superstore_data() -> pd.DataFrame:
-    data_dirname = os.getenv("DATA_DIRNAME", None)
-    if data_dirname is None:
-        msg = "Data directory not defined."
-        raise FileNotFoundError(msg)
-
-    superstore_filename = os.getenv("SUPERSTORE_FILENAME", None)
-    if superstore_filename is None:
-        msg = "Superstore dataset file not defined."
-        raise FileNotFoundError(msg)
-
-    superstore_datapath = Path() / data_dirname / superstore_filename
+    superstore_datapath = st.session_state.get("superstore_datapath")
 
     return data_access.superstore.read(superstore_datapath)
 
 
 @st.cache_data
 def fetch_geographic_data() -> pd.DataFrame:
-    data_dirname = os.getenv("DATA_DIRNAME", None)
-    if data_dirname is None:
-        msg = "Data directory not defined."
-        raise FileNotFoundError(msg)
-
-    geographic_filename = os.getenv("GEO_FILENAME", None)
-    if geographic_filename is None:
-        msg = "US geography dataset file not defined."
-        raise FileNotFoundError(msg)
-
-    geographic_datapath = Path() / data_dirname / geographic_filename
+    geographic_datapath = st.session_state.get("geographic_datapath")
 
     return data_access.geographic.read(geographic_datapath)
 
@@ -48,11 +24,24 @@ def fetch_geographic_data() -> pd.DataFrame:
 def get_pages() -> list[st.Page]:
     return [
         st.Page(page=welcome, title="Welcome!", icon="🏠"),
-        st.Page(page=other, title="Other!", icon="💬"),
+        st.Page(page=sales, title="Sales", icon="📈"),
+        st.Page(page=products, title="Products", icon="📦"),
+        st.Page(page=clients, title="Clients", icon="💼"),
     ]
 
 
 def run_app() -> None:
+    data_dirname = st.secrets["data"]["data_dirname"]
+    superstore_filename = st.secrets["data"]["superstore_filename"]
+    geographic_filename = st.secrets["data"]["geographic_filename"]
+
+    datapath = Path(data_dirname)
+    superstore_datapath = datapath / superstore_filename
+    geographic_datapath = datapath / geographic_filename
+
+    st.session_state.setdefault("datapath", datapath)
+    st.session_state.setdefault("superstore_datapath", superstore_datapath)
+    st.session_state.setdefault("geographic_datapath", geographic_datapath)
     st.session_state.setdefault("superstore_data", fetch_superstore_data())
     st.session_state.setdefault("geographic_data", fetch_geographic_data())
 

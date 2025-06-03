@@ -33,6 +33,6 @@ def clients() -> None:
         .nunique()
         .reset_index()
     )
-    customers_year.columns = ["Año", "Clientes únicos"]
+    customers_year.columns = ["Year", "Clientes únicos"]
     customers_year["Year"] = customers_year["Year"].astype(str)
     st.line_chart(customers_year.set_index("Year"))

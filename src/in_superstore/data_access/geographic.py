@@ -36,4 +36,5 @@ def read(geographic_datapath: Path) -> pd.DataFrame:
             "latitude": pd.Float64Dtype(),
             "longitude": pd.Float64Dtype(),
         },
+        skipinitialspace=True,
     )

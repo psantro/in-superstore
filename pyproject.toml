@@ -16,7 +16,7 @@ dependencies = [
   "matplotlib",
   "seaborn",
   "great-tables",
-  "streamlit"
+  "streamlit>=1.36"
 ]
 
 [tool.ruff]

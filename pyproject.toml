@@ -21,6 +21,7 @@ seaborn = "*"
 great-tables = "*"
 streamlit = ">=1.36"
 plotly = "*"
+statsmodels = "*"
 
 [tool.poetry.dev-dependencies]
 ruff = "*"

@@ -2,10 +2,10 @@ import pandas as pd
 import streamlit as st
 
 
-def clients() -> None:
+def customers() -> None:
     superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
 
-    st.title("Clientes")
+    st.title("🧍‍♂️ Customers 🧍‍♀️")
 
     col1, col2, col3 = st.columns(3)
 
@@ -15,7 +15,10 @@ def clients() -> None:
         superstore_data.groupby("Customer ID", observed=False)["Sales"].sum().mean()
     )
     repeat_customers = (
-        superstore_data.groupby("Customer ID", observed=False)["Order ID"].nunique().gt(1).sum()
+        superstore_data.groupby("Customer ID", observed=False)["Order ID"]
+        .nunique()
+        .gt(1)
+        .sum()
     )
 
     col1.metric("Clientes únicos", f"{n_customers}")
@@ -24,7 +27,9 @@ def clients() -> None:
 
     col1.metric("Venta media por cliente", f"${avg_sales_per_customer:,.2f}")
     col2.metric("Clientes recurrentes", f"{repeat_customers}")
-    col3.metric("Porcentaje recurrentes", f"{(repeat_customers / n_customers) * 100:.1f}%")
+    col3.metric(
+        "Porcentaje recurrentes", f"{(repeat_customers / n_customers) * 100:.1f}%"
+    )
 
     st.subheader("Clientes únicos por año")
     superstore_data["Order Date"] = pd.to_datetime(superstore_data["Order Date"])

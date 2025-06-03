@@ -1,60 +1,119 @@
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(
-    page_title="Ventas",
-    page_icon=":chart_with_upwards_trend:",
-)
 
-superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
-geo_data = st.session_state.get("geo_data", pd.DataFrame())
+def sales() -> None:
+    superstore_data = st.session_state.get(
+        "superstore_data",
+        pd.DataFrame(),
+    )
+    geo_data = st.session_state.get(
+        "geo_data",
+        pd.DataFrame(),
+    )
 
-st.title("Ventas")
+    st.title("Ventas")
 
-st.subheader("Mapa de ventas por ciudad")
+    superstore_data["Order Date"] = pd.to_datetime(
+        superstore_data["Order Date"],
+    )
+    superstore_data["Year"] = superstore_data["Order Date"].dt.year
 
-pc_sales = superstore_data.groupby("Postal Code").size().reset_index(name="Ventas")
+    last_year = superstore_data["Year"].max()
+    prev_year = last_year - 1
 
-geo_sales = pc_sales.merge(
-    geo_data,
-    left_on="Postal Code",
-    right_on="postal_code",
-    how="left",
-)
+    df_last = superstore_data[superstore_data["Year"] == last_year]
+    df_prev = superstore_data[superstore_data["Year"] == prev_year]
 
-geo_sales = geo_sales.dropna(subset=["latitude", "longitude"])
+    total_sales_last = df_last["Sales"].sum()
+    total_sales_prev = df_prev["Sales"].sum()
 
-geo_sales = geo_sales.rename(columns={"latitude": "lat", "longitude": "lon"})
+    total_profit_last = df_last["Profit"].sum()
+    total_profit_prev = df_prev["Profit"].sum()
 
-st.map(geo_sales[["lat", "lon", "Ventas"]], size="Ventas")
+    n_orders_last = df_last["Order ID"].nunique()
+    n_orders_prev = df_prev["Order ID"].nunique()
 
-st.subheader("Gráfico de beneficios por año")
+    col1, col2, col3 = st.columns(3)
 
-superstore_data["Order Date"] = pd.to_datetime(superstore_data["Order Date"])
+    col1.metric(
+        "Número de ventas (último año)",
+        f"{n_orders_last}",
+        delta=(
+            f"{n_orders_last - n_orders_prev} "
+            f"({((n_orders_last - n_orders_prev) / n_orders_prev * 100):.2f}%)"
+            if n_orders_prev
+            else "N/A"
+        ),
+        delta_color=("normal" if n_orders_last >= n_orders_prev else "inverse"),
+    )
 
-yearly_profit = (
-    superstore_data.groupby(superstore_data["Order Date"].dt.year)["Profit"].sum().reset_index()
-)
-yearly_profit["Order Date"] = yearly_profit["Order Date"].astype(str)
+    col2.metric(
+        "Dinero de las ventas (último año)",
+        f"${total_sales_last:,.0f}",
+        delta=(
+            f"${total_sales_last - total_sales_prev:,.0f} "
+            f"({((total_sales_last - total_sales_prev) / total_sales_prev * 100):.2f}%)"
+            if total_sales_prev
+            else "N/A"
+        ),
+        delta_color=("normal" if total_sales_last >= total_sales_prev else "inverse"),
+    )
 
-st.line_chart(
-    yearly_profit,
-    x="Order Date",
-    y="Profit",
-    use_container_width=True,
-)
+    col3.metric(
+        "Beneficio total (último año)",
+        f"${total_profit_last:,.0f}",
+        delta=(
+            f"${total_profit_last - total_profit_prev:,.0f} "
+            f"({((total_profit_last - total_profit_prev) / total_profit_prev * 100):.2f}%)"
+            if total_profit_prev
+            else "N/A"
+        ),
+        delta_color=("normal" if total_profit_last >= total_profit_prev else "inverse"),
+    )
 
-st.subheader("Aumento del benedicio respecto al año anterior")
+    st.subheader("Mapa de ventas por ciudad")
 
-last_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False).iloc[0]["Profit"]
-compare_year_profit = yearly_profit.sort_values(by="Order Date", ascending=False).iloc[1]["Profit"]
+    pc_sales = (
+        superstore_data.groupby("Postal Code", observed=False).size().reset_index(name="Ventas")
+    )
 
-st.metric(
-    label="Incremento del beneficio del último año",
-    value=f"${last_year_profit:,.2f}",
-    delta=(
-        f"${last_year_profit - compare_year_profit:,.2f} "
-        f"({((last_year_profit - compare_year_profit) / compare_year_profit) * 100:.2f}%)"
-    ),
-    delta_color=("normal" if last_year_profit >= compare_year_profit else "inverse"),
-)
+    geo_sales = pc_sales.merge(
+        geo_data,
+        left_on="Postal Code",
+        right_on="postal_code",
+        how="left",
+    )
+
+    geo_sales = geo_sales.dropna(
+        subset=["latitude", "longitude"],
+    )
+
+    geo_sales["Ventas"] = geo_sales["Ventas"] * 250
+
+    st.map(geo_sales, size="Ventas")
+
+    st.subheader("Gráfico de beneficios por año")
+
+    yearly_profit = superstore_data.groupby("Year")["Profit"].sum().reset_index()
+    yearly_profit["Year"] = yearly_profit["Year"].astype(str)
+
+    st.line_chart(
+        yearly_profit,
+        x="Year",
+        y="Profit",
+        use_container_width=True,
+    )
+
+    st.subheader("Gráfico de número de ventas por año")
+
+    yearly_orders = superstore_data.groupby("Year")["Order ID"].nunique().reset_index()
+    yearly_orders["Year"] = yearly_orders["Year"].astype(str)
+    yearly_orders.columns = ["Year", "Count"]
+
+    st.line_chart(
+        yearly_orders,
+        x="Year",
+        y="Count",
+        use_container_width=True,
+    )

@@ -118,7 +118,7 @@ def show_predictions_tab(superstore_data):
 
     orders_monthly = (
         superstore_data.set_index("Order Date")
-        .resample("M")["Order ID"]
+        .resample("ME")["Order ID"]
         .nunique()
         .reset_index()
     )
@@ -150,7 +150,7 @@ def show_predictions_tab(superstore_data):
     )
     profit_monthly = (
         superstore_data.set_index("Order Date")
-        .resample("M")["Profit"]
+        .resample("ME")["Profit"]
         .sum()
         .reset_index()
     )

@@ -7,19 +7,19 @@ def welcome() -> None:
 
     st.markdown(
         """
-    ## Bienvenido al Dashboard Ejecutivo
-    Este dashboard proporciona una visión general de los indicadores
-    clave de rendimiento (KPI) de la empresa.
+    ## Welcome to the Executive Dashboard
+    This dashboard provides an overview of the American Superstore data, focusing on key performance indicators (KPIs) for sales, products and clients.
 
-    ### Secciones del Dashboard:
-    - **KPIs de Productos**: Visión general de los indicadores más importantes.
-    - **KPIs de Ventas**: Detalles sobre las ventas por región y producto.
+    ### Sections:
+    - **Sales**: Explore sales trends, performance by region, and key metrics.
+    - **Products**: Analyze product performance, including best-sellers and profit margins.
+    - **Clients**: Understand client demographics, purchasing behavior, and loyalty metrics.
 
-    Utiliza el menú lateral para navegar entre las diferentes secciones.
+    Use the sidebar to navigate between sections and explore the data in detail.
     """,
     )
 
-    st.subheader("Datos Cargados")
+    st.subheader("Data Overview")
 
     superstore_data = st.session_state.get("superstore_data", pd.DataFrame())
     geo_data = st.session_state.get("geographic_data", pd.DataFrame())

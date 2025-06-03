@@ -1,1 +1,1 @@
-from . import geo, superstore
+from . import geographic, superstore

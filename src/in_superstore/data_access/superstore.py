@@ -6,7 +6,7 @@ import pandas as pd
 def read(superstore_datapath: Path) -> pd.DataFrame:
     superstore_data = pd.read_csv(
         filepath_or_buffer=superstore_datapath,
-        index_col="Order ID",
+        index_col="Row ID",
         dtype={
             "Order ID": pd.StringDtype(),
             "Order Date": pd.StringDtype(),
@@ -32,8 +32,6 @@ def read(superstore_datapath: Path) -> pd.DataFrame:
         skip_blank_lines=True,
         skipinitialspace=True,
     )
-
-    superstore_data = superstore_data.drop(labels=["Row ID"], axis="columns")
 
     superstore_data["Order Date"] = pd.to_datetime(
         superstore_data["Order Date"], format="%m/%d/%Y"

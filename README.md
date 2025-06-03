@@ -52,14 +52,24 @@ Choose one of the following options:
 pip install -e .
 ```
 
-
 - **Developer Installation (with dev dependencies)**
 
 ```bash
 pip install -e .[dev]
 ```
 
-### 5. Close Virtual Environment
+### 5. Run the project
+
+```bash
+streamlit run src/in_supermarket/dashboard/app.py
+```
+
+And then open your web browser with the specified port. 
+
+### 6. Exit
+
+Press `Control + C` to terminate the `streamlit` app.
+And then close the Virtual Environment: 
 
 ```bash
 deactivate

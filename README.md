@@ -4,7 +4,10 @@ A business intelligence project for a fictional superstore — leveraging Python
 
 ---
 
-## 🛠️ Installation Guide
+## 🛠️ (Optional Local) Installation Guide
+
+**This installation is optional**. This is needed only if you want to edit the application or run it locally.
+**You can already access the working app deployed online via [streamlit cloud](https://in-superstore.streamlit.app/).**
 
 To get started, ensure you have the following installed:
 
@@ -58,7 +61,18 @@ pip install -e .
 pip install -e .[dev]
 ```
 
-### 5. Run the project
+### 5. Configure `.streamlit/secrets.toml`
+
+Create `.streamlit/secrets.toml` file (inside the project folder `) with the following content:
+
+```toml
+[data]
+data_dirname = "data"
+superstore_filename = "Superstore.csv"
+geographic_filename = "US.txt"
+```
+
+### 6. Run the project
 
 ```bash
 streamlit run src/in_supermarket/dashboard/app.py
@@ -66,7 +80,7 @@ streamlit run src/in_supermarket/dashboard/app.py
 
 And then open your web browser with the specified port. 
 
-### 6. Exit
+### 7. Exit
 
 Press `Control + C` to terminate the `streamlit` app.
 And then close the Virtual Environment: 

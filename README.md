@@ -101,7 +101,7 @@ Open your browser at the specified port (usually `http://localhost:8501`).
 
 ### 7️⃣ Exit the App ❌
 
-Press Ctrl + C to stop the Streamlit app.
+Press `Ctrl + C` to stop the Streamlit app.
 
 - Deactivate the virtual environment:
 ```bash

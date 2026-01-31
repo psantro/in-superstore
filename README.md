@@ -27,42 +27,42 @@ cd in-superstore
 
 ### 2️⃣ Create a Virtual Environment
 
-- Windows:
+- **Windows**:
 ```bash
 python -m venv .venv
 ```
 
-- macOS / Linux / WSL:
+- **macOS / Linux / WSL**:
 ```bash
 python3 -m venv .venv
 ```
 
 ### 3️⃣ Activate the Virtual Environment
 
-- Windows:
+- **Windows**:
 ```bash
 .venv\Scripts\activate
 ```
 
-- macOS / Linux / WSL:
+- **macOS / Linux / WSL**:
 ```bash
 source .venv/bin/activate
 ```
 ### 4️⃣ Install Project Dependencies
 
-- User Installation (basic dependencies):
+- **User Installation** (basic dependencies):
 ```bash
 pip install -e .
 ```
 
-- Developer Installation (with dev dependencies):
+- **Developer Installation** (with dev dependencies):
 ```bash
 pip install -e .[dev]
 ```
 
 ### 5️⃣ Configure .streamlit/secrets.toml 🔑
 
-Create .streamlit/secrets.toml inside the project folder with the following content:
+Create `.streamlit/secrets.toml` inside the project folder with the following content:
 ```toml
 [data]
 data_dirname = "data"
@@ -72,7 +72,7 @@ geographic_filename = "US.txt"
 
 You can also create it via a single command:
 
-- Linux / macOS / WSL:
+- **Linux / macOS / WSL**:
 ```bash
 mkdir -p .streamlit && cat > .streamlit/secrets.toml <<EOL
 [data]
@@ -82,7 +82,7 @@ geographic_filename = "US.txt"
 EOL
 ```
 
-- Windows (cmd.exe):
+- **Windows**:
 ```bash
 mkdir .streamlit 2>nul && (
 echo [data]> .streamlit\secrets.toml
@@ -108,4 +108,6 @@ Press `Ctrl + C` to stop the Streamlit app.
 deactivate
 ```
 
-### ✨ Now you’re ready to explore your Superstore BI dashboard locally!
+---
+
+**✨ Now you’re ready to explore your Superstore BI dashboard locally!**

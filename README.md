@@ -27,27 +27,28 @@ cd in-superstore
 
 ### 2️⃣ Create a Virtual Environment
 
+- **Linux / macOS / WSL**:
+```bash
+python3 -m venv .venv
+```
+
 - **Windows**:
 ```bash
 python -m venv .venv
 ```
 
-- **macOS / Linux / WSL**:
-```bash
-python3 -m venv .venv
-```
-
 ### 3️⃣ Activate the Virtual Environment
+
+- **Linux / macOS / WSL**:
+```bash
+source .venv/bin/activate
+```
 
 - **Windows**:
 ```bash
 .venv\Scripts\activate
 ```
 
-- **macOS / Linux / WSL**:
-```bash
-source .venv/bin/activate
-```
 ### 4️⃣ Install Project Dependencies
 
 - **User Installation** (basic dependencies):

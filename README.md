@@ -99,7 +99,7 @@ pip install -e .
 streamlit run src/in_supermarket/dashboard/app.py
 ```
 
-Open your browser at the specified port (streamlit defaults are [`http://localhost:8501`](http://localhost:8501)).
+Open your browser at the specified port (streamlit default is [`http://localhost:8501`](http://localhost:8501)).
 
 ### :five: Exit the App :x:
 

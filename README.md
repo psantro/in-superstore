@@ -1,67 +1,50 @@
-# 🛍️ Business Intelligence (IN) - Superstore 🛒
+# :bar_chart: Business Intelligence (IN) - Superstore :shopping_cart:
+
+ - [:clipboard: Project Summary](#clipboard-project-summary)
+ - [:wrench: **Optional** Installation](#wrench-optional-installation):
+   - [:zero: Prerequisites](#zero-prerequisites)
+   - [:one: Clone the Repository](#one-clone-the-repository)
+   - [:two: Configure .streamlit/secrets.toml :key:](#two-configure-streamlitsecretstoml-key)
+   - [:three: Create a Virtual Environment and install dependencies](#three-create-a-virtual-environment-and-install-dependencies)
+   - [:four:. Run the App :rocket:](#four-run-the-app-rocket)
+   - [:five: Exit the App :x:](#five-exit-the-app-x)
+
+### :busts_in_silhouette: Authors:
+ - Garrido Massé, Antonio
+ - Sánchez Troncoso, Pablo
+
+---
+
+## :clipboard: Project Summary
 
 Welcome to the **Superstore Business Intelligence Project**!  
 This project leverages **Python** and **machine learning** to analyze sales trends, forecast performance, and help make **data-driven decisions** for a fictional superstore.
 
-You can try the **live app online** via [Streamlit Cloud](https://in-superstore.streamlit.app/) 🚀
+You can try the **live app online** via [Streamlit Cloud](https://in-superstore.streamlit.app/) :rocket:
+
+For a deeper look at our design and development decisions and the insights we uncovered, [**see the full lab report**](lab-report.pdf) :memo:.
 
 ---
 
-## 🛠️ Optional Local Installation
+## :wrench: **Optional** Installation
 
-If you want to **edit the app** or run it locally, follow these steps. Otherwise, enjoy the deployed version online.
+If you want to edit **run the app locally**, follow these steps. Otherwise, enjoy the deployed version online.
 
-### 🔹 Prerequisites
+### :zero: Prerequisites
 
 - [Git](https://git-scm.com/)  
 - [Python 3.13](https://www.python.org/downloads/)  
 
 ---
 
-### 1️⃣ Clone the Repository
+### :one: Clone the Repository
 
 ```bash
 git clone https://github.com/psantro/in-superstore.git
 cd in-superstore
 ```
 
-### 2️⃣ Create a Virtual Environment
-
-- **Linux / macOS / WSL**:
-```bash
-python3 -m venv .venv
-```
-
-- **Windows**:
-```bash
-python -m venv .venv
-```
-
-### 3️⃣ Activate the Virtual Environment
-
-- **Linux / macOS / WSL**:
-```bash
-source .venv/bin/activate
-```
-
-- **Windows**:
-```bash
-.venv\Scripts\activate
-```
-
-### 4️⃣ Install Project Dependencies
-
-- **User Installation** (basic dependencies):
-```bash
-pip install -e .
-```
-
-- **Developer Installation** (with dev dependencies):
-```bash
-pip install -e .[dev]
-```
-
-### 5️⃣ Configure .streamlit/secrets.toml 🔑
+### :two: Configure .streamlit/secrets.toml :key:
 
 Create `.streamlit/secrets.toml` inside the project folder with the following content:
 ```toml
@@ -93,22 +76,38 @@ echo geographic_filename = "US.txt">> .streamlit\secrets.toml
 )
 ```
 
-### 6️⃣ Run the App 🚀
+
+### :three: Create a Virtual Environment and install dependencies
+
+- **Linux / macOS / WSL**:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+
+```
+
+- **Windows**:
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -e .
+```
+
+### :four:. Run the App :rocket:
 ```bash
 streamlit run src/in_supermarket/dashboard/app.py
 ```
 
-Open your browser at the specified port (usually `http://localhost:8501`).
+Open your browser at the specified port (streamlit defaults are [`http://localhost:8501`](http://localhost:8501)).
 
-### 7️⃣ Exit the App ❌
+### :five: Exit the App :x:
 
-Press `Ctrl + C` to stop the Streamlit app.
-
-- Deactivate the virtual environment:
+On the cmd, press `Ctrl + C`  to stop the Streamlit app and then deactivate the virtual environment:
 ```bash
 deactivate
 ```
 
 ---
 
-**✨ Now you’re ready to explore your Superstore BI dashboard locally!**
+**:sparkles: Now you’re ready to explore your Superstore BI dashboard locally!**

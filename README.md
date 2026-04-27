@@ -58,7 +58,7 @@ You can also create it via a single command:
 
 - **Linux / macOS / WSL**:
 ```bash
-mkdir -p .streamlit && cat > `.streamlit/secrets.toml` <<EOL
+mkdir -p .streamlit && cat > .streamlit/secrets.toml <<EOL
 [data]
 data_dirname = "data"
 superstore_filename = "Superstore.csv"

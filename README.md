@@ -4,7 +4,7 @@
  - [:wrench: **Optional** Installation](#wrench-optional-installation):
    - [:zero: Prerequisites](#zero-prerequisites)
    - [:one: Clone the Repository](#one-clone-the-repository)
-   - [:two: Configure .streamlit/secrets.toml :key:](#two-configure-streamlitsecretstoml-key)
+   - [:two: Configure `.streamlit/secrets.toml` :key:](#two-configure-streamlitsecretstoml-key)
    - [:three: Create a Virtual Environment and install dependencies](#three-create-a-virtual-environment-and-install-dependencies)
    - [:four:. Run the App :rocket:](#four-run-the-app-rocket)
    - [:five: Exit the App :x:](#five-exit-the-app-x)
@@ -44,9 +44,9 @@ git clone https://github.com/psantro/in-superstore.git
 cd in-superstore
 ```
 
-### :two: Configure .streamlit/secrets.toml :key:
+### :two: Configure `.streamlit/secrets.toml` :key:
 
-Create `.streamlit/secrets.toml` inside the project folder with the following content:
+Create ``.streamlit/secrets.toml`` inside the project folder with the following content:
 ```toml
 [data]
 data_dirname = "data"
@@ -58,7 +58,7 @@ You can also create it via a single command:
 
 - **Linux / macOS / WSL**:
 ```bash
-mkdir -p .streamlit && cat > .streamlit/secrets.toml <<EOL
+mkdir -p .streamlit && cat > `.streamlit/secrets.toml` <<EOL
 [data]
 data_dirname = "data"
 superstore_filename = "Superstore.csv"
